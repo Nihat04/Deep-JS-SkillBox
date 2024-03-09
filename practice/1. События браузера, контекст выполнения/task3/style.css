@@ -1,0 +1,6 @@
+.up-btn {
+    position: sticky;
+    display: none;
+    bottom: 20px;
+    left: calc(100% - 50px)
+}

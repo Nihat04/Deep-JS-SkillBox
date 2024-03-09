@@ -1,0 +1,45 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+.films-list {
+    --gap: 20px;
+    --item-line-count: 3;
+    display: flex;
+    padding: 0;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: var(--gap);
+}
+
+.films-item {
+    padding: 10px;
+    width: calc((100% - var(--gap) * (var(--item-line-count) - 1)) / var(--item-line-count));
+    border: 3px solid #9b7979;
+    border-radius: 15px;
+    background-color: rgb(129, 129, 129);
+    cursor: pointer;
+    transition: all 100ms linear;
+}
+
+.films-item:hover {
+    background-color: #9b7979;
+    transition: all 100ms linear;
+}
+
+.item__film__header {
+    font-size: 20px;
+    font-weight: 700;
+}
