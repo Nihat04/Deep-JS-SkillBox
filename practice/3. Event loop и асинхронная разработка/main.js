@@ -1,4 +1,3 @@
-import { getFilmData, renderFilm, renderFilmById } from "./components/films-manager.js";
 import { renderCorePage, renderFilmDetailsPage } from "./components/view.js";
 
 if(!location.search) {
