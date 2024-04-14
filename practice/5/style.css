@@ -1,0 +1,90 @@
+.container {
+    margin: 30px 0 0 150px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 420px;
+}
+
+.tile {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+    font-size: 90px;
+    text-align: center;
+    background-color: rgb(255, 251, 0);
+    color: black;
+}
+
+.tile:hover {
+    background-color: rgb(255, 210, 0);
+}
+
+.close {
+    background-color: red;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.close:hover {
+    background-color: rgb(255, 120, 0);
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.open {
+    background-color: green;
+    color: black;
+    pointer-events:none;
+}
+
+.open:hover {
+    background-color: rgb(0, 160, 0);
+}
+
+.btn {
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    height: 60px;
+    display: block;
+    margin-bottom: -150px;
+    font-size: 20px;
+    margin-left: 230px;
+    margin-top: 50px;
+    background-color:rgb(255, 251, 0);
+}
+
+.btn:hover {
+    background-color: rgb(255, 210, 0);
+}
+
+.form {
+    border: 3px solid red;
+    border-radius: 7%;
+    width: 400px;
+    text-align: center;
+    margin: 20px 0 0 153px;
+}
+
+.form p {
+    font-size: 20px;
+}
+
+span {
+    color: red;
+}
+
+.input {
+    margin-bottom: 10px;
+    height: 30px;
+    width: 250px;
+    font-size: 20px;
+    text-align: center;
+}
+
+

@@ -5,36 +5,34 @@ const prototypesList = document.querySelector(".result-list");
 searchBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
-    const val = "HTMLInputElement";
     const inputValue = input.value;
 
     prototypesList.innerHTML = '';
 
-    obj = window[inputValue];
-
-    if(!obj) {
-        input.classList.add()
+    let windowProperty = window[inputValue];
+    if(!windowProperty) {
+        input.classList.add('invalid')
         return;
     }
+    if(input.classList.contains('invalid')) input.classList.remove('invalid');
 
-    while (true) {
-        const prototype = Object.getPrototypeOf(obj);
-        if (!prototype) break;
-        const prototypeName = prototype.constructor.name;
+    if(!typeof windowProperty === 'function') {
+        console.log('error')
+        return;
+    }
+    let prototype = windowProperty.prototype;
 
-        const prototypeItem = renderPrototypeListItem(prototypeName);
-        const methodsList = document.createElement("ol");
-
-        for (method of Object.keys(obj)) {
-            const methodItem = document.createElement("li");
-            methodItem.textContent = method;
-            methodsList.append(methodItem);
+    while(prototype) {
+        const prototypeItem = renderPrototypeListItem(prototype.constructor.name);
+        const methodsList = document.createElement('ol');
+        
+        for(method of Object.keys(prototype)) {
+            methodsList.append(renderPrototypeMethodsItem(method))
         }
-
+        
         prototypeItem.append(methodsList);
         prototypesList.append(prototypeItem);
-
-        obj = prototype;
+        prototype = Object.getPrototypeOf(prototype);
     }
 });
 
@@ -43,9 +41,15 @@ function getPrototypeMethods(prototype) {
 }
 
 function renderPrototypeListItem(prototypeName) {
-    const newListItem = document.createElement('li');
-    const newListHeader = document.createElement("h3");
-    newListHeader.textContent = prototypeName;
-    newListItem.append(newListHeader);
-    return newListItem;
+    const item = document.createElement('li');
+    const itemHeader = document.createElement("h4");
+    itemHeader.textContent = prototypeName;
+    item.append(itemHeader);
+    return item;
+}
+
+function renderPrototypeMethodsItem(methodName) {
+    const item = document.createElement('li');
+    item.textContent = methodName;
+    return item;
 }
