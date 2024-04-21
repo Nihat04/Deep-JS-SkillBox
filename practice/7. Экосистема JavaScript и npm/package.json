@@ -1,0 +1,14 @@
+{
+  "name": "skillbox-module7",
+  "version": "1.0.0",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "author": "Nihat",
+  "dependencies": {
+    "vite": "^5.2.9"
+  }
+}
