@@ -1,0 +1,27 @@
+.card-form {
+    display: flex;
+    padding: 40px;
+    width: 500px;
+    height: 200px;
+    flex-direction: column;
+    background-color: green;
+    border-radius: 20px;
+    gap: 20px;
+}
+
+.number-wrapper {
+    display: flex;
+    justify-items: center;
+    gap: 10px;
+}
+
+.card-input {
+  width: 100% - 30px;
+  opacity: 70%;
+  border: none;
+  border-radius: 10px;
+}
+
+.paying-system {
+    height: 30px;
+}
