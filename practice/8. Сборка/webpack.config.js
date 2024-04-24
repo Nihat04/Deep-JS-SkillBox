@@ -37,7 +37,7 @@ module.exports = (env) => ({
     optimization: {
         minimizer: [
             '...',
-            new ImageMinimizerPlugin({
+            new ImageMinimizerPlugin({ 
                 minimizer: {
                     implementation: ImageMinimizerPlugin.imageminMinify,
                     options: {
