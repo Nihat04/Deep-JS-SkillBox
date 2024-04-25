@@ -25,31 +25,26 @@ export function validateExpireDate(date) {
 
 export function correctExpireDate(date) {
   const currentDate = new Date();
-  const currentYear2Digit = currentDate.getFullYear() % 100;
-  const currentMonth = currentDate.getMonth() + 1;
   let [month, year] = date.split('/');
+  let expireDate = new Date(`20${year}/${month}/1`);
+  
   let isValid = true;
+  let errorMsg = '';
 
-  if (parseInt(month) > 12) {
-    alert('чисто месяца больше 12');
+  if(isNaN(expireDate) && date) {
+    errorMsg = 'дата действия карты указана неверно';
     isValid = false;
   }
-  if (parseInt(month) < 1) {
-    alert('чисто месяца меньше 1');
-    isValid = false;
-  }
-  if (parseInt(year) < currentYear2Digit) {
-    alert('указан прошедший год');
-    isValid = false;
-  }
-  if (parseInt(year) === currentYear2Digit && parseInt(month) <= currentMonth) {
-    alert('указана прошедшая дата');
+
+  if(expireDate < currentDate) {
+    errorMsg = 'дата действия карты уже истекла';
     isValid = false;
   }
 
   return {
     value: month || year ? `${month}/${year || ''}` : '',
     isValid,
+    errorMsg,
   };
 }
 
