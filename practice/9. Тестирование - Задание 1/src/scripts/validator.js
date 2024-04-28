@@ -27,16 +27,16 @@ export function correctExpireDate(date) {
   const currentDate = new Date();
   let [month, year] = date.split('/');
   let expireDate = new Date(`20${year}/${month}/1`);
-  
+
   let isValid = true;
   let errorMsg = '';
 
-  if(isNaN(expireDate) && date) {
+  if (isNaN(expireDate) && date) {
     errorMsg = 'дата действия карты указана неверно';
     isValid = false;
   }
 
-  if(expireDate < currentDate) {
+  if (expireDate < currentDate) {
     errorMsg = 'дата действия карты уже истекла';
     isValid = false;
   }

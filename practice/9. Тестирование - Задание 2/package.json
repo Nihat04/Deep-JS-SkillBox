@@ -1,0 +1,12 @@
+{
+  "name": "testing-task2",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "dev": "webpack serve"
+  },
+  "author": "Nihat",
+  "license": "ISC"
+}
