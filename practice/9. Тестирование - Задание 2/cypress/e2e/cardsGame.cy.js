@@ -33,31 +33,65 @@ describe('cards game', () => {
     let secondPairIndex = '';
 
     cy.get('.game__card').each((el, index) => {
-      if (index === 0 || secondPairIndex) return;
+      cy.then(() => {
+        if (index === 0) return;
+        if (secondPairIndex) return false;
 
-      cy.get('.game__card').eq('0').click();
-      cy.wrap(el).click();
+        cy.get('.game__card').eq('0').click();
+        cy.wrap(el).click();
 
-      cy.get('.game__card')
-        .eq('0')
-        .children('p')
-        .then((pureEl) => {
-          if (pureEl.text() === el.text()) {
-            secondPairIndex = el.text();
+        cy.get('.game__card')
+          .eq('0')
+          .children('p')
+          .then((firstEl) => {
+            if (firstEl.text() === el.text()) {
+              secondPairIndex = index;
+
+              cy.get('.game__card')
+                .eq('')
+                .should('have.class', 'game__card--found')
+                .and('not.have.class', 'game__card--open');
+
+              cy.get('.game__card')
+                .eq(secondPairIndex)
+                .should('have.class', 'game__card--found')
+                .and('not.have.class', 'game__card--open');
+            }
+          });
+
+        cy.wait(200);
+      });
+    });
+  });
+
+  it.only('closes unpaired cards when 3 was open', () => {
+    let shouldStop = false;
+
+    cy.get('.game__card').each((element, index) => {
+      cy.then(() => {
+        if (shouldStop) return false;
+
+        cy.get('.game__card').then((el) => {
+          if (index >= el.length - 3) {
+            shouldStop = true
+            throw new Error('number of cards ended');
           }
         });
 
-      cy.wait(200);
+        const firstEl = cy.get('.game__card').eq(index);
+        const secondEl = cy.get('.game__card').eq(index + 1);
+        const thirdEl = cy.get('.game__card').eq(index + 2);
+
+        firstEl.click();
+        secondEl.click();
+        cy.wait(200);
+
+        thirdEl.click();
+
+        firstEl.then((el) => {
+          if (!el.hasClass('game__card--found')) shouldStop = true;
+        });
+      });
     });
-
-    cy.get('.game__card')
-      .eq('0')
-      .should('have.class', 'game__card--found')
-      .and('not.have.class', 'game__card--open');
-
-    cy.get('.game__card')
-      .eq(secondPairIndex)
-      .should('have.class', 'game__card--found')
-      .and('not.have.class', 'game__card--open');
   });
 });
