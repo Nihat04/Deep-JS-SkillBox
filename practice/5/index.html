@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Игры в пары</title>
-    <link href="style.css" rel="stylesheet">
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            startGame(document.getElementById('signs'), createNumbers());
-        });
-    </script>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script defer type="module" src="main.js"></script>
+    <title>Find Card Game</title>
 </head>
 <body>
-    <form class="form" id="form">
-        <p class="text">Введите <span>чётное</span> значение от <span>2</span> до <span>10</span></p>
-    </form>
-    <div class="container" id="signs">
-
+    <div class="container">
+        <div id="game" class="game">
+        </div>
+        <button id="new-game-btn" class="new-game-btn" disabled>Сыграть ещё раз</button>
     </div>
 </body>
-<script src="tiles.js"></script>
 </html>

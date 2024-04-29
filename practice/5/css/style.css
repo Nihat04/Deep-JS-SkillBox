@@ -1,0 +1,92 @@
+body {
+    box-sizing: border-box;
+    font-family:sans-serif;
+    background-color: #7A7A7A;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1300px;
+}
+
+:root {
+    --gap: 10px;
+}
+
+/* game */
+
+.game {
+    position: absolute;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 830px;
+    flex-wrap: wrap;
+    gap: var(--gap);
+}
+
+.game__card {
+    --offsets: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    color: transparent;
+    background-color: darkblue;
+}
+
+.game__card--open {
+    color: black;
+    background-color: aqua;
+    cursor: default;
+}
+
+.game__card--open .card__img {
+    display: block;
+}
+
+.game__card--found {
+    color: black;
+    cursor: default;
+    background-color: darkgreen;
+}
+
+.game__card--found .card__img {
+    display: block;
+}
+
+.card__paragraph {
+    margin: 0;
+    font-size: 120px;
+    text-align: center;
+    user-select: none;
+}
+
+.new-game-btn {
+    position: absolute;
+    width: 100px;
+    border: none;
+    border-radius: 25px;
+    left: 50%;
+    bottom: 10%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.new-game-btn:hover {
+    background-color: cyan;
+}
+
+.new-game-btn:disabled {
+    visibility: hidden;
+}
+
+.card__img {
+    display: none;
+    width: 150px;
+}
