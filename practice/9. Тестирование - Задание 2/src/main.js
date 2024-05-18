@@ -6,7 +6,7 @@ function newGame() {
   btn.disabled = true;
   foundCards.splice(0, foundCards.length);
   let arr = generatePairedNumbers(cardsNumber);
-  arr = shuffle(arr);
+  // arr = shuffle(arr);
   createCards(arr);
 }
 
