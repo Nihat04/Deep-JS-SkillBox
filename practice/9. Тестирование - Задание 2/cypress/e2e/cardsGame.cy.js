@@ -33,7 +33,7 @@ describe('cards game', () => {
     let secondPairIndex = '';
 
     cy.get('.game__card').each((el, index) => {
-      if (index === 0 || secondPairIndex) return;
+      if (index === 0 || secondPairIndex) return false;
 
       cy.get('.game__card').eq('0').click();
       cy.wrap(el).click();
