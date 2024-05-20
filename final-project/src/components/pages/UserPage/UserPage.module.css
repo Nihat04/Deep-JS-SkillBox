@@ -1,0 +1,27 @@
+.container {
+    margin: auto;
+    width: 50%;
+}
+
+.back-btn {
+    margin: 30px;
+}
+
+.user {
+    display: flex;
+    align-items:start;
+    gap: 50px;
+}
+
+.user__img {
+    --size: 200px;
+    width: var(--size);
+}
+
+.user__info__name {
+    margin: 0;
+}
+
+.user__edit-btn {
+    margin-left: auto;
+}

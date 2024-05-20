@@ -1,0 +1,11 @@
+.container {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+.reg-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}

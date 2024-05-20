@@ -1,0 +1,17 @@
+.error-msg {
+    display: none;
+    padding: 10px 35px;
+    margin-bottom: 30px;
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    color: #333;
+    border: 2px solid #6d1412;
+    border-radius: 6px;
+    background: rgba(239, 62, 58, 0.6);
+}
+
+.error-msg-active {
+    display: block;
+}

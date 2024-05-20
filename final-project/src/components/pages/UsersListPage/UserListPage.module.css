@@ -1,0 +1,35 @@
+.user-search-inp {
+    margin: 30px 50px 0 50px;
+    width: 30%;
+}
+
+.users-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+}
+
+.paginator {
+    display: flex;
+    padding: 10px 50px;
+    gap: 5px;
+}
+
+.paginator__btn {
+    --size: 30px;
+    width: var(--size);
+    height: var(--size);
+    border: 1px solid #333;
+    border-radius: 4px;
+    background: none;
+}
+
+.paginator__btn:hover {
+    color: #fff;
+    background: #333;
+}
+
+.paginator__btn-active {
+    color: #fff;
+    background: #502aaf;
+}

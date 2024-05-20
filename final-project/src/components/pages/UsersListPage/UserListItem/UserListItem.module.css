@@ -1,0 +1,29 @@
+.user-list-item {
+    display: flex;
+    margin: 0;
+    padding: 1rem;
+    width: 100%;
+    align-items: center;
+    border-bottom: 1px solid #7a7a7a;
+    gap: 20px;
+}
+
+.user-list-item__img {
+    --size: 120px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 100%;
+}
+
+.user-list-item__name {
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+    transition: all 150ms linear;
+}
+
+.user-list-item__name:hover {
+    color: blue;
+    font-size: 22px;
+    transition: all 150ms linear;
+}
