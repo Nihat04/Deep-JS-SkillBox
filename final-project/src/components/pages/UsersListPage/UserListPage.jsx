@@ -18,7 +18,10 @@ const UserListPage = () => {
     });
 
     useEffect(() => {
-        if (pageData.search && pageData.totalUsers) {
+        if (
+            (pageData.search || pageData.filter.activeId) &&
+            pageData.totalUsers
+        ) {
             axios
                 .get(
                     `https://reqres.in/api/users?per_page=${pageData.totalUsers}&page=${1}`
@@ -65,7 +68,7 @@ const UserListPage = () => {
             })
             .catch((err) => console.error(err));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageData.currentPage, pageData.search]);
+    }, [pageData.currentPage, pageData.search, pageData.filter]);
 
     return (
         <>

@@ -1,5 +1,4 @@
 import styles from './Filters.module.css';
-import { useState } from 'react';
 import FiltersItem from './FiltersItem';
 
 const Filters = (props) => {

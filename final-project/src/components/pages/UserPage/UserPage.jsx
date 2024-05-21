@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import styles from './UserPage.module.css';
 import axios from 'axios';
 import blankPhoto from '../../../assets/img/blank-profile-photo.png';
+import EditUserModal from './EditUserModal/EditUserModal';
 
 const UserPage = () => {
     const { id } = useParams();
@@ -43,6 +44,7 @@ const UserPage = () => {
                     Редактировать
                 </button>
             </div>
+            <EditUserModal user={user} />
         </div>
     );
 };

@@ -25,7 +25,10 @@ const FiltersItem = (props) => {
         });
         setUsersList(
             usersList.sort((a, b) => {
-                if (pageData.filter.reverse) {
+                if (
+                    pageData.filter.activeId === id &&
+                    !pageData.filter.reverse
+                ) {
                     return b[userPropertyName].localeCompare(
                         a[userPropertyName]
                     );
