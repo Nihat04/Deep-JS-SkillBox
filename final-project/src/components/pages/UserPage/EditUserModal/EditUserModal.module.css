@@ -1,0 +1,14 @@
+.user-edit__modal {
+    width: 30%;
+    border: none;
+}
+
+.user-edit__modal__form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.user-edit__modal__form__btns {
+    margin-left: auto;
+}
