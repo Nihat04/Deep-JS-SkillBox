@@ -4,14 +4,23 @@ import styles from './UserPage.module.css';
 import axios from 'axios';
 import blankPhoto from '../../../assets/img/blank-profile-photo.png';
 import EditUserModal from './EditUserModal/EditUserModal';
+import { useDispatch } from 'react-redux';
+import { UPDATE_USER } from '../../../store';
 
-const UserPage = () => {
+const UserPage = (props) => {
     const { id } = useParams();
+    const { user: givenUser } = props;
     const [user, setUser] = useState({});
     const modalRef = useRef();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        if (givenUser) {
+            setUser(givenUser);
+            return;
+        }
+
         axios
             .get(`https://reqres.in/api/users/${id}`)
             .then((res) => res.data)
@@ -19,6 +28,12 @@ const UserPage = () => {
             .catch((err) => console.error(err));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    givenUser &&
+        useEffect(() => {
+            localStorage.setItem('user', JSON.stringify(user));
+            dispatch({ type: UPDATE_USER, payload: user });
+        }, [user]);
 
     return (
         <div className={styles['container']}>

@@ -4,10 +4,14 @@ import UserListItem from './UserListItem/UserListItem';
 import styles from './UserListPage.module.css';
 import Paginator from './Paginator/Paginator';
 import Filters from './Filters/Filters';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import blankPhoto from '../../../assets/img/blank-profile-photo.png';
 
 const PER_PAGE_USERS = 10;
 
 const UserListPage = () => {
+    const authUser = useSelector((state) => state.user);
     const [usersList, setUsersList] = useState([]);
     const [pageData, setPageData] = useState({
         currentPage: 1,
@@ -72,6 +76,24 @@ const UserListPage = () => {
 
     return (
         <>
+            <div className={styles['my-profile__container']}>
+                <img
+                    className={styles['my-profile__img']}
+                    src={authUser.avatar || blankPhoto}
+                    alt=""
+                />
+                <Link className={styles['my-profile__name']} to="./user/me">
+                    {authUser.first_name} {authUser.last_name}
+                </Link>
+                <button
+                    onClick={() => {
+                        localStorage.removeItem('token');
+                        location.reload();
+                    }}
+                >
+                    Выйти
+                </button>
+            </div>
             <input
                 className={styles['user-search-inp']}
                 type="text"

@@ -10,5 +10,7 @@
 }
 
 .user-edit__modal__form__btns {
+    display: flex;
     margin-left: auto;
+    gap: 15px;
 }

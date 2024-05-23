@@ -9,3 +9,15 @@
     flex-direction: column;
     gap: 30px;
 }
+
+.reg-form__inp-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
+}
+
+.reg-form__inp {
+    width: 100%;
+}

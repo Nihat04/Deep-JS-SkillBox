@@ -1,4 +1,3 @@
-import axios from 'axios';
 import styles from './EditUserModal.module.css';
 import { useEffect, useState } from 'react';
 
@@ -20,10 +19,8 @@ const EditUserModal = (props) => {
 
     const saveChanges = (e) => {
         e.preventDefault();
-        axios
-            .put(`https://reqres.in/api/users/${user.id}`, userChanges)
-            .then((res) => res.data)
-            .then((data) => setUser(data));
+        setUser(userChanges);
+        console.log('1');
         closeModal(e);
     };
 
@@ -58,6 +55,16 @@ const EditUserModal = (props) => {
                     />
                 </div>
                 <div className="user-edit__modal__form__input-container">
+                    <label>Фотография профиля</label>
+                    <input
+                        type="text"
+                        name="avatar"
+                        placeholder="Ссылка на фотографию профиля"
+                        value={userChanges.avatar || ''}
+                        onChange={updateUserChages}
+                    />
+                </div>
+                <div className="user-edit__modal__form__input-container">
                     <label>Почта</label>
                     <input
                         type="text"
@@ -67,7 +74,7 @@ const EditUserModal = (props) => {
                         onChange={updateUserChages}
                     />
                 </div>
-                <div className="user-edit__modal__form__btns">
+                <div className={styles['user-edit__modal__form__btns']}>
                     <button
                         className={styles['user-edit__modal__form__close-btn']}
                         onClick={closeModal}
@@ -79,6 +86,7 @@ const EditUserModal = (props) => {
                             styles['user-edit__modal__form__confirm-btn']
                         }
                         onClick={saveChanges}
+                        type="submit"
                     >
                         Сохранить
                     </button>

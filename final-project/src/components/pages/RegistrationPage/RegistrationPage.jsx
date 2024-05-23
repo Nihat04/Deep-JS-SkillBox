@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './RegistrationPage.module.css';
-import axios from 'axios';
 import ErrorMsg from '../../ui/ErrorMsg/ErrorMsg';
 
 const RegistrationPage = () => {
@@ -12,7 +11,7 @@ const RegistrationPage = () => {
     const updateRegData = (e) => {
         setRegistrationData({
             ...registrationData,
-            [e.target.id]: e.target.value,
+            [e.target.name]: e.target.value,
         });
     };
 
@@ -25,19 +24,9 @@ const RegistrationPage = () => {
             return;
         }
 
-        axios
-            .post('https://reqres.in/api/register', registrationData)
-            .then((res) => res.data)
-            .then((data) => {
-                console.log(data);
-                localStorage.setItem('id', data.id);
-                localStorage.setItem('token', data.token);
-                navigate('/');
-            })
-            .catch((err) => {
-                console.error(err);
-                setError(err.message);
-            });
+        localStorage.setItem('user', JSON.stringify(registrationData));
+        localStorage.setItem('token', 'rejhrwkioideuqwiou1');
+        navigate('/');
     };
 
     return (
@@ -45,46 +34,55 @@ const RegistrationPage = () => {
             <h2>Регистрация</h2>
             <ErrorMsg active={error}>{error}</ErrorMsg>
             <form action="#" className={styles['reg-form']}>
-                <div className="reg-form__inp-container">
-                    <label>Имя</label>
+                <div className={styles['reg-form__inp-container']}>
+                    <label>Имя*</label>
                     <input
-                        className={styles['reg-form__email-inp']}
-                        type="email"
-                        placeholder="Email"
-                        id="email"
+                        className={styles['reg-form__inp']}
+                        type="text"
+                        placeholder="Алёша"
+                        name="first_name"
                         onChange={updateRegData}
                         required
                     />
                 </div>
-                <div className="reg-form__inp-container">
+                <div className={styles['reg-form__inp-container']}>
                     <label>Фамилия</label>
                     <input
-                        className={styles['reg-form__email-inp']}
+                        className={styles['reg-form__inp']}
                         type="text"
                         placeholder="Иванович"
-                        id="email"
+                        name="last_name"
                         onChange={updateRegData}
-                        required
                     />
                 </div>
-                <div className="reg-form__inp-container">
-                    <label>Электронная почта</label>
+                <div className={styles['reg-form__inp-container']}>
+                    <label>Ссылка фотографии профиля</label>
                     <input
-                        className={styles['reg-form__email-inp']}
+                        className={styles['reg-form__inp']}
+                        type="text"
+                        placeholder="ссылка фотографии"
+                        name="avatar"
+                        onChange={updateRegData}
+                    />
+                </div>
+                <div className={styles['reg-form__inp-container']}>
+                    <label>Электронная почта*</label>
+                    <input
+                        className={styles['reg-form__inp']}
                         type="email"
                         placeholder="Email"
-                        id="email"
+                        name="email"
                         onChange={updateRegData}
                         required
                     />
                 </div>
-                <div className="reg-form__inp-container">
-                    <label>Пароль</label>
+                <div className={styles['reg-form__inp-container']}>
+                    <label>Пароль*</label>
                     <input
-                        className={styles['reg-form__password-inp']}
+                        className={styles['reg-form__inp']}
                         type="password"
                         placeholder="Password"
-                        id="password"
+                        name="password"
                         onChange={updateRegData}
                         required
                     />

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styles from './AuthorizationPage.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import ErrorMsg from '../../ui/ErrorMsg/ErrorMsg';
 
 const AuthorizationPage = () => {
@@ -12,7 +11,7 @@ const AuthorizationPage = () => {
     const updateAuthorizationData = (e) => {
         setAuthorizationData({
             ...authorizationData,
-            [e.target.id]: e.target.value,
+            [e.target.name]: e.target.value,
         });
     };
 
@@ -25,17 +24,19 @@ const AuthorizationPage = () => {
             return;
         }
 
-        axios
-            .post('https://reqres.in/api/login', authorizationData)
-            .then((res) => res.data)
-            .then((data) => {
-                localStorage.setItem('token', data.token);
-                navigate('/');
-            })
-            .catch((err) => {
-                console.error(err);
-                setError(err.message);
-            });
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        if (user == null) setError('Пользователь не найден');
+
+        if (
+            user.email == authorizationData.email &&
+            user.password == authorizationData.password
+        ) {
+            localStorage.setItem('token', 'rejhrwkioideuqwiou1');
+            navigate('/');
+        } else {
+            setError('Электронный адрес или пароль неверны');
+        }
     };
 
     return (
@@ -47,7 +48,7 @@ const AuthorizationPage = () => {
                     className={styles['auth-form__email-inp']}
                     type="text"
                     placeholder="email"
-                    id="email"
+                    name="email"
                     onChange={updateAuthorizationData}
                     required
                 />
@@ -55,7 +56,7 @@ const AuthorizationPage = () => {
                     className={styles['auth-form__password-inp']}
                     type="password"
                     placeholder="Пароль"
-                    id="password"
+                    name="password"
                     onChange={updateAuthorizationData}
                     required
                 />
