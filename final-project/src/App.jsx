@@ -14,6 +14,7 @@ function App() {
         if (!token) {
             navigate('/auth');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

@@ -45,22 +45,50 @@ const RegistrationPage = () => {
             <h2>Регистрация</h2>
             <ErrorMsg active={error}>{error}</ErrorMsg>
             <form action="#" className={styles['reg-form']}>
-                <input
-                    className={styles['reg-form__email-inp']}
-                    type="email"
-                    placeholder="Email"
-                    id="email"
-                    onChange={updateRegData}
-                    required
-                />
-                <input
-                    className={styles['reg-form__password-inp']}
-                    type="password"
-                    placeholder="Password"
-                    id="password"
-                    onChange={updateRegData}
-                    required
-                />
+                <div className="reg-form__inp-container">
+                    <label>Имя</label>
+                    <input
+                        className={styles['reg-form__email-inp']}
+                        type="email"
+                        placeholder="Email"
+                        id="email"
+                        onChange={updateRegData}
+                        required
+                    />
+                </div>
+                <div className="reg-form__inp-container">
+                    <label>Фамилия</label>
+                    <input
+                        className={styles['reg-form__email-inp']}
+                        type="text"
+                        placeholder="Иванович"
+                        id="email"
+                        onChange={updateRegData}
+                        required
+                    />
+                </div>
+                <div className="reg-form__inp-container">
+                    <label>Электронная почта</label>
+                    <input
+                        className={styles['reg-form__email-inp']}
+                        type="email"
+                        placeholder="Email"
+                        id="email"
+                        onChange={updateRegData}
+                        required
+                    />
+                </div>
+                <div className="reg-form__inp-container">
+                    <label>Пароль</label>
+                    <input
+                        className={styles['reg-form__password-inp']}
+                        type="password"
+                        placeholder="Password"
+                        id="password"
+                        onChange={updateRegData}
+                        required
+                    />
+                </div>
                 <button
                     className={styles['reg-form__reg-btn']}
                     onClick={register}

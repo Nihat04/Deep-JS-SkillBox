@@ -1,6 +1,6 @@
 import axios from 'axios';
 import styles from './EditUserModal.module.css';
-import { createRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const EditUserModal = (props) => {
     const { user, setUser, modalRef } = props;
