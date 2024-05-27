@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import UserListItem from './UserListItem/UserListItem';
 import styles from './UserListPage.module.css';
 import Paginator from './Paginator/Paginator';
 import Filters from './Filters/Filters';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import blankPhoto from '../../../assets/img/blank-profile-photo.png';
+import blankPhoto from '../../assets/img/blank-profile-photo.png';
 
 const PER_PAGE_USERS = 10;
 
@@ -21,42 +21,23 @@ const UserListPage = () => {
         },
     });
 
-    useEffect(() => {
+    const filteredUsers = useMemo(() => {
         if (
             (pageData.search || pageData.filter.activeId) &&
             pageData.totalUsers
         ) {
-            axios
-                .get(
-                    `https://reqres.in/api/users?per_page=${pageData.totalUsers}&page=${1}`
+            return usersList.filter(({ first_name, last_name, email }) =>
+                [first_name, last_name, email].some((el) =>
+                    el.toLowerCase().includes(pageData.search.toLowerCase())
                 )
-                .then((res) => res.data)
-                .then((data) => {
-                    setUsersList(
-                        data.data.filter(
-                            (user) =>
-                                user.first_name
-                                    .toLowerCase()
-                                    .includes(pageData.search.toLowerCase()) ||
-                                user.last_name
-                                    .toLowerCase()
-                                    .includes(pageData.search.toLowerCase()) ||
-                                user.email
-                                    .toLowerCase()
-                                    .includes(pageData.search.toLowerCase())
-                        )
-                    );
-                })
-                .catch((err) => console.error(err));
-
-            setPageData({
-                ...pageData,
-                totalPages: Math.ceil(usersList.length / PER_PAGE_USERS),
-            });
-
-            return;
+            );
+        } else {
+            return usersList;
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [usersList, pageData.search, pageData.filter]);
 
+    useEffect(() => {
         axios
             .get(
                 `https://reqres.in/api/users?per_page=${PER_PAGE_USERS}&page=${pageData.currentPage}`
@@ -72,7 +53,7 @@ const UserListPage = () => {
             })
             .catch((err) => console.error(err));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageData.currentPage, pageData.search, pageData.filter]);
+    }, [pageData.currentPage]);
 
     return (
         <>
@@ -83,7 +64,7 @@ const UserListPage = () => {
                     alt=""
                 />
                 <Link className={styles['my-profile__name']} to="./user/me">
-                    {authUser.first_name} {authUser.last_name}
+                    {[authUser.first_name, authUser.last_name].join(' ')}
                 </Link>
                 <button
                     onClick={() => {
@@ -109,7 +90,7 @@ const UserListPage = () => {
                 setPageData={setPageData}
             />
             <ul className={styles['users-list']}>
-                {usersList.map((user) => (
+                {filteredUsers.map((user) => (
                     <UserListItem key={user.id} user={user} />
                 ))}
             </ul>

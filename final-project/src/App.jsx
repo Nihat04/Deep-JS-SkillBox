@@ -1,32 +1,51 @@
 import './App.css';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import UserListPage from './components/pages/UsersListPage/UserListPage';
-import UserPage from './components/pages/UserPage/UserPage';
-import AuthorizationPage from './components/pages/AuthorizationPage/AuthorizationPage';
-import RegistrationPage from './components/pages/RegistrationPage/RegistrationPage';
-import { useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import UserListPage from './pages/UsersListPage/UserListPage';
+import UserPage from './pages/UserPage/UserPage';
+import AuthorizationPage from './pages/AuthorizationPage/AuthorizationPage';
+import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-function App() {
-    const navigate = useNavigate();
-    const authUser = useSelector((state) => state.user);
-    useEffect(() => {
-        const token = localStorage.getItem('token');
+const privateRoutes = {
+    routes: [
+        { path: '/auth', page: AuthorizationPage },
+        { path: '/reg', page: RegistrationPage },
+    ],
+    redirectAddress: '/auth',
+};
 
-        if (!token) {
-            navigate('/auth');
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+const publicRoutes = {
+    routes: [
+        { path: '/', page: UserListPage },
+        { path: '/user/:id/', page: UserPage },
+        { path: '/user/me/', page: UserPage },
+    ],
+    redirectAddress: '/',
+};
+
+function App() {
+    const token = useSelector((state) => state.token);
+
+    const availableRoutes = useMemo(() => {
+        if (token) return publicRoutes;
+        return privateRoutes;
+    }, [token]);
 
     return (
         <Routes>
-            <Route path="/" element={<UserListPage />} />
-            <Route path="/user/:id/" element={<UserPage />} />
-            <Route path="/user/me/" element={<UserPage user={authUser} />} />
-            <Route path="/auth" element={<AuthorizationPage />} />
-            <Route path="/reg" element={<RegistrationPage />} />
-            <Route path="*" replace element={<Navigate to="/" />} />
+            {availableRoutes.routes.map((route) => (
+                <Route
+                    key={route.path}
+                    path={route.path}
+                    element={React.createElement(route.page)}
+                />
+            ))}
+            <Route
+                path="*"
+                replace
+                element={<Navigate to={availableRoutes.redirectAddress} />}
+            />
         </Routes>
     );
 }

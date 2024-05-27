@@ -1,23 +1,23 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import styles from './UserPage.module.css';
 import axios from 'axios';
-import blankPhoto from '../../../assets/img/blank-profile-photo.png';
+import blankPhoto from '../../assets/img/blank-profile-photo.png';
 import EditUserModal from './EditUserModal/EditUserModal';
-import { useDispatch } from 'react-redux';
-import { UPDATE_USER } from '../../../store';
+import { useSelector } from 'react-redux';
 
-const UserPage = (props) => {
+const UserPage = () => {
     const { id } = useParams();
-    const { user: givenUser } = props;
+    const authUser = useSelector((state) => state.user);
     const [user, setUser] = useState({});
     const modalRef = useRef();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const location = useLocation();
 
     useEffect(() => {
-        if (givenUser) {
-            setUser(givenUser);
+        const pathHasMe = location.pathname.includes('/me');
+        if (pathHasMe && authUser) {
+            setUser(authUser);
             return;
         }
 
@@ -28,12 +28,6 @@ const UserPage = (props) => {
             .catch((err) => console.error(err));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    givenUser &&
-        useEffect(() => {
-            localStorage.setItem('user', JSON.stringify(user));
-            dispatch({ type: UPDATE_USER, payload: user });
-        }, [user]);
 
     return (
         <div className={styles['container']}>
@@ -48,7 +42,7 @@ const UserPage = (props) => {
                 />
                 <div className="user__info">
                     <h2 className={styles['user__info__name']}>
-                        {user.first_name} {user.last_name}
+                        {[user.first_name, user.last_name].join(' ')}
                     </h2>
                     <a
                         className={styles['user__info__email']}
@@ -64,12 +58,7 @@ const UserPage = (props) => {
                     Редактировать
                 </button>
             </div>
-            <EditUserModal
-                user={user}
-                setUser={setUser}
-                modalRef={modalRef}
-                open
-            />
+            <EditUserModal user={user} setUser={setUser} ref={modalRef} />
         </div>
     );
 };

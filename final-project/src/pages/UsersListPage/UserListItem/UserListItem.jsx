@@ -1,5 +1,5 @@
 import styles from './UserListItem.module.css';
-import blankPhoto from '../../../../assets/img/blank-profile-photo.png';
+import blankPhoto from '../../../assets/img/blank-profile-photo.png';
 import { Link } from 'react-router-dom';
 
 const UserListItem = (props) => {
